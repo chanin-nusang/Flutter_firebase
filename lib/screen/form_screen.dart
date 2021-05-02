@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/model/student.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FormScreen extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class _FormScreenState extends State<FormScreen> {
   Student myStudent = Student();
   //เตรียม firebase
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
+  CollectionReference _studentCollection =
+      FirebaseFirestore.instance.collection("student");
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -104,9 +107,18 @@ class _FormScreenState extends State<FormScreen> {
                             child: ElevatedButton(
                                 child: Text("บันทึกข้อมูล",
                                     style: TextStyle(fontSize: 20)),
-                                onPressed: () {
+                                onPressed: () async {
                                   if (formkey.currentState.validate()) {
                                     formkey.currentState.save();
+                                    await _studentCollection.add({
+                                      "fname": myStudent.fname,
+                                      "lname": myStudent.lname,
+                                      "email": myStudent.email,
+                                      "score": myStudent.score,
+                                    });
+                                    formkey.currentState.reset();
+                                    DefaultTabController.of(context)
+                                        .animateTo(1);
                                   }
                                 }),
                           ),
