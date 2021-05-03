@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/screen/home_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final auth = FirebaseAuth.instance;
@@ -16,7 +17,17 @@ class WelcomeScreen extends StatelessWidget {
               Text(
                 auth.currentUser.email,
                 style: TextStyle(fontSize: 25),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    auth.signOut().then((value) {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return HomeScreen();
+                      }));
+                    });
+                  },
+                  child: Text("ออกจากระบบ"))
             ],
           ),
         ));
