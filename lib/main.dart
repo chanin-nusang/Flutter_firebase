@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase/screen/display_screen.dart';
 import 'package:flutter_firebase/screen/form_screen.dart';
 import 'package:flutter_firebase/screen/home_screen.dart';
+import 'package:flutter_firebase/screen/welcome_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,18 +33,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         body: TabBarView(
-          children: [FormScreen(), DisplayScreen()],
+          children: [WelcomeScreen(), FormScreen(), DisplayScreen()],
         ),
         backgroundColor: Colors.blue,
         bottomNavigationBar: TabBar(
           tabs: [
+            Tab(text: "หน้าแรก"),
             Tab(text: "บันทึกคะแนน"),
             Tab(
               text: "รายชื่อนักเรียน",
-            )
+            ),
           ],
         ),
       ),
