@@ -87,17 +87,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         await FirebaseAuth.instance
                                             .createUserWithEmailAndPassword(
                                                 email: profile.email,
-                                                password: profile.password);
-                                        Fluttertoast.showToast(
-                                            msg:
-                                                "สร้างบัญชีผู้ใช้เรียบร้อยแล้ว กรุณาเข้าสู่ระบบด้วยอีเมลและรหัสผ่านดังกล่าว",
-                                            gravity: ToastGravity.TOP);
-                                        formKey.currentState.reset();
-                                        Navigator.pushReplacement(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return HomeScreen();
-                                        }));
+                                                password: profile.password)
+                                            .then((value) {
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  "สร้างบัญชีผู้ใช้เรียบร้อยแล้ว กรุณาเข้าสู่ระบบด้วยอีเมลและรหัสผ่านดังกล่าว",
+                                              gravity: ToastGravity.TOP);
+                                          formKey.currentState.reset();
+                                          Navigator.pushReplacement(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return HomeScreen();
+                                          }));
+                                        });
                                       } on FirebaseAuthException catch (e) {
                                         String message;
                                         if (e.code == 'email-already-in-use') {
