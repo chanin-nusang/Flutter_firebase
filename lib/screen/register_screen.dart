@@ -94,11 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   "สร้างบัญชีผู้ใช้เรียบร้อยแล้ว กรุณาเข้าสู่ระบบด้วยอีเมลและรหัสผ่านดังกล่าว",
                                               gravity: ToastGravity.TOP);
                                           formKey.currentState.reset();
-                                          Navigator.pushReplacement(context,
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                            return HomeScreen();
-                                          }));
+                                          Navigator.pop(context);
                                         });
                                       } on FirebaseAuthException catch (e) {
                                         String message;
